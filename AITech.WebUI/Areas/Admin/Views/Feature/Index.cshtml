@@ -1,0 +1,62 @@
+@model List<AITech.WebUI.DTOs.FeatureDtos.ResultFeatureDto>
+@{
+    ViewData["Title"] = "Hizmet Listesi";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container mx-auto">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-2xl font-bold text-white tracking-tight">Hizmetler</h2>
+            <p class="text-sm text-slate-400 mt-1">Sitede görüntülenen hizmetleri buradan yönetebilirsiniz.</p>
+        </div>
+        <a href="/Admin/Feature/CreateFeature" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accent-gradient-start to-accent-gradient-end text-white font-medium shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-xl">add</span>
+            Yeni Hizmet Ekle
+        </a>
+    </div>
+
+    <div class="glass-card rounded-2xl p-6 border border-white/5 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="text-xs uppercase text-secondary font-bold tracking-wider border-b border-white/5">
+                        <th class="py-4 pl-4 w-16">#</th>
+                        <th class="py-4 w-1/4">Başlık</th>
+                        <th class="py-4">Açıklama</th>
+                        <th class="py-4 w-16">İkon</th>
+                        <th class="py-4 text-right pr-4 w-32">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm text-slate-300">
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr class="hover:bg-white/5 transition-colors border-b border-white/5 last:border-0">
+                                <td class="py-4 pl-4 font-medium align-top">@item.Id</td>
+                                <td class="py-4 font-bold text-white align-top">@item.Title</td>
+                                <td class="py-4 text-slate-400 align-top whitespace-normal">@item.Description</td>
+                                <td class="py-4 align-top">
+                                    <div class="size-8 rounded bg-white/5 flex items-center justify-center text-primary border border-white/10">
+                                        <i class="@item.Icon"></i>
+                                    </div>
+                                </td>
+                                <td class="py-4 text-right pr-4 align-top">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <a href="/Admin/Feature/UpdateFeature/@item.Id" class="size-9 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white flex items-center justify-center transition-all border border-emerald-500/20">
+                                            <span class="material-symbols-outlined text-lg">edit</span>
+                                        </a>
+                                        <button onclick="deleteAction('/Admin/Feature/DeleteFeature/@item.Id')" class="size-9 rounded-lg bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all border border-red-500/20">
+                                            <span class="material-symbols-outlined text-lg">delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

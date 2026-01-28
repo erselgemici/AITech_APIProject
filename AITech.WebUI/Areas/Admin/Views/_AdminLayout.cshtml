@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="dark" lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AI.Tech - Stitch Panel</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1363C6",
+                        "secondary": "#15ACE1",
+                        "accent-gradient-start": "#06A3DA",
+                        "accent-gradient-end": "#1363C6",
+                        "background-dark": "#0f172a",
+                        "panel-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, #06A3DA 0%, #1363C6 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(6, 163, 218, 0.3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            vertical-align: top;
+        }
+        /* Dikey hizalama üstte olsun */
+        tr:hover td {
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* SweetAlert Özelleştirme */
+        div:where(.swal2-container) div:where(.swal2-popup) {
+            background: #1e293b !important;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e2e8f0 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark text-slate-200 min-h-screen flex selection:bg-primary selection:text-white">
+
+    <aside class="w-64 bg-background-dark border-r border-white/5 flex flex-col fixed h-full z-50">
+        <div class="p-6">
+            <a href="/Admin/Dashboard" class="flex items-center gap-3 decoration-0 group">
+                <div class="size-10 rounded-xl bg-gradient-to-r from-accent-gradient-start to-accent-gradient-end flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-white">bolt</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold leading-none tracking-tight text-white">AI.Tech</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-secondary font-bold mt-1 opacity-80">Stitch Panel</p>
+                </div>
+            </a>
+        </div>
+
+        <nav class="flex-1 px-4 py-2 space-y-1 overflow-y-auto">
+            <p class="px-4 text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2 mb-2">Genel</p>
+
+            <a href="/Admin/Dashboard" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-medium">Dashboard</span>
+            </a>
+            <a href="/Admin/Category/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active" : "")">
+                <span class="material-symbols-outlined">category</span>
+                <span class="font-medium">Kategoriler</span>
+            </a>
+            <a href="/Admin/Project/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Project" ? "active" : "")">
+                <span class="material-symbols-outlined">account_tree</span>
+                <span class="font-medium">Projeler</span>
+            </a>
+
+            <p class="px-4 text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-6 mb-2">Kurumsal</p>
+
+            <a href="/Admin/About/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "About" ? "active" : "")">
+                <span class="material-symbols-outlined">info</span>
+                <span class="font-medium">Hakkımızda</span>
+            </a>
+            <a href="/Admin/AboutItem/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "AboutItem" ? "active" : "")">
+                <span class="material-symbols-outlined">list</span>
+                <span class="font-medium">Hakkımızda (Madde)</span>
+            </a>
+            <a href="/Admin/Feature/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Feature" ? "active" : "")">
+                <span class="material-symbols-outlined">featured_play_list</span>
+                <span class="font-medium">Öne Çıkanlar</span>
+            </a>
+            <a href="/Admin/Choose/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Choose" ? "active" : "")">
+                <span class="material-symbols-outlined">verified</span>
+                <span class="font-medium">Neden Biz?</span>
+            </a>
+
+            <p class="px-4 text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-6 mb-2">Site Yönetimi</p>
+
+            <a href="/Admin/Banner/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Banner" ? "active" : "")">
+                <span class="material-symbols-outlined">view_carousel</span>
+                <span class="font-medium">Bannerlar</span>
+            </a>
+            <a href="/Admin/Testimonial/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Testimonial" ? "active" : "")">
+                <span class="material-symbols-outlined">forum</span>
+                <span class="font-medium">Referanslar</span>
+            </a>
+            <a href="/Admin/Faq/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Faq" ? "active" : "")">
+                <span class="material-symbols-outlined">help_center</span>
+                <span class="font-medium">S.S.S</span>
+            </a>
+            <a href="/Admin/Social/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Social" ? "active" : "")">
+                <span class="material-symbols-outlined">share</span>
+                <span class="font-medium">Sosyal Medya</span>
+            </a>
+            <a href="/Admin/Gemini/Index" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Gemini" ? "active" : "")">
+                <span class="material-symbols-outlined">auto_awesome</span>
+                <span class="font-medium">Gemini AI</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/5">
+            <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 hover:bg-red-500/10 hover:text-red-400 transition-all">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-medium">Siteye Dön</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 p-8 transition-all">
+        <header class="flex items-center justify-between mb-8 sticky top-4 z-40 bg-background-dark/80 backdrop-blur-md py-2 border-b border-white/5">
+            <div class="flex items-center gap-4 flex-1">
+                <div class="relative w-full max-w-md">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[20px]">search</span>
+                    <input type="text" placeholder="Admin panelinde ara..." class="w-full bg-slate-800/50 border border-white/5 rounded-full py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all placeholder-slate-500">
+                </div>
+            </div>
+            <div class="flex items-center gap-5">
+                <button class="relative text-slate-400 hover:text-white transition">
+                    <span class="material-symbols-outlined text-2xl">notifications</span>
+                    <span class="absolute top-0 right-0 size-2.5 bg-primary rounded-full shadow-lg shadow-primary/50 border-2 border-background-dark"></span>
+                </button>
+                <div class="h-8 w-[1px] bg-white/10"></div>
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden md:block">
+                        <p class="font-bold text-sm text-white">Admin User</p>
+                        <p class="text-[10px] text-secondary font-bold tracking-wider">YÖNETİCİ</p>
+                    </div>
+                    <img src="~/AI/img/team-1.jpg" alt="Admin" class="size-10 rounded-full border-2 border-white/5 object-cover">
+                </div>
+            </div>
+        </header>
+
+        <div class="fade-in pb-10">
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Tüm silme işlemleri için ortak fonksiyon
+        function deleteAction(url) {
+            Swal.fire({
+                title: 'Silmek istediğinize emin misiniz?',
+                text: "Bu işlem geri alınamaz!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1363C6', // Senin Primary Rengin
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, Sil!',
+                cancelButtonText: 'Vazgeç',
+                background: '#1e293b', // Dark Panel Rengi
+                color: '#e2e8f0'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            })
+        }
+    </script>
+</body>
+</html>

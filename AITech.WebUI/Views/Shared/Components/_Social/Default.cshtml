@@ -1,0 +1,11 @@
+@using AITech.WebUI.DTOs.SocialDtos
+@model List<ResultSocialDto>
+
+<div class="d-flex pt-2">
+    @foreach (var item in Model)
+    {
+        <a class="btn btn-outline-light btn-social" href="@item.Url" target="_blank">
+            <i class="@item.Icon"></i>
+        </a>
+    }
+</div>

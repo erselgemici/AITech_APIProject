@@ -1,0 +1,62 @@
+@model AITech.WebUI.DTOs.ProjectDtos.UpdateProjectDto
+@{
+    ViewData["Title"] = "Proje Güncelle";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container mx-auto max-w-2xl">
+    <a href="/Admin/Project/Index" class="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        Listeye Dön
+    </a>
+
+    <div class="glass-card rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+        <div class="absolute top-0 right-0 size-32 bg-secondary/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+
+        <h2 class="text-2xl font-bold text-white mb-1 flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary">edit_note</span>
+            Projeyi Düzenle
+        </h2>
+
+        <form method="post" class="mt-8">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="space-y-6">
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Proje Adı</label>
+                    <input type="text" asp-for="Title" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                </div>
+
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Kategori</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">category</span>
+                        <select asp-for="CategoryId" asp-items="@ViewBag.categories" class="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none focus:border-secondary transition-all appearance-none cursor-pointer">
+                            <option value="" disabled>Kategori Seçiniz</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">expand_more</span>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Görsel URL</label>
+                    <div class="flex gap-4 items-start">
+                        <div class="relative flex-1">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">image</span>
+                            <input type="text" asp-for="ImageUrl" class="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" class="h-12 w-12 rounded-lg object-cover border border-white/20" title="Mevcut Görsel" />
+                        }
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-white/5 text-white font-bold border border-white/10 hover:bg-secondary hover:border-secondary hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">update</span>
+                    Güncelle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+@model AITech.WebUI.DTOs.SocialDtos.UpdateSocialDto
+@{
+    ViewData["Title"] = "Sosyal Medya Güncelle";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container mx-auto max-w-lg">
+    <a href="/Admin/Social/Index" class="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        Listeye Dön
+    </a>
+
+    <div class="glass-card rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+        <div class="absolute top-0 right-0 size-24 bg-secondary/10 rounded-full blur-2xl -mr-5 -mt-5 pointer-events-none"></div>
+
+        <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary">edit</span>
+            Hesabı Düzenle
+        </h2>
+
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="space-y-6">
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Platform Adı</label>
+                    <input type="text" asp-for="Name" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                </div>
+
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Profil Linki</label>
+                    <input type="text" asp-for="Url" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                </div>
+
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">İkon Sınıfı</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">code</span>
+                        <input type="text" asp-for="Icon" class="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold border border-white/10 hover:bg-secondary hover:border-secondary hover:shadow-lg transition-all">
+                    Güncelle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

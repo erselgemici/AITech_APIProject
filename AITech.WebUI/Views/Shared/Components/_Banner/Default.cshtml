@@ -1,0 +1,30 @@
+@using AITech.WebUI.DTOs.BannerDtos
+@model ResultBannerDto
+
+<div class="container-fluid pt-5 bg-primary hero-header mb-5">
+    <div class="container pt-5">
+        <div class="row g-5 pt-5">
+            <div class="col-lg-6 align-self-center text-center text-lg-start mb-lg-5">
+                <div class="btn btn-sm border rounded-pill text-white px-3 mb-3 animated slideInRight">AI.Tech</div>
+                @if (Model != null)
+                {
+                    <h1 class="display-4 text-white mb-4 animated slideInRight">@Model.Title</h1>
+                    <p class="text-white mb-4 animated slideInRight">@Model.Description</p>
+                }
+                else
+                {
+                    <h1 class="display-4 text-white mb-4 animated slideInRight">Varsayılan Başlık</h1>
+                    <p class="text-white mb-4 animated slideInRight">Veritabanında aktif banner bulunamadı.</p>
+                }
+                <a href="" class="btn btn-light py-sm-3 px-sm-5 rounded-pill me-3 animated slideInRight">Daha Fazla</a>
+                <a href="" class="btn btn-outline-light py-sm-3 px-sm-5 rounded-pill animated slideInRight">İletişim</a>
+            </div>
+            <div class="col-lg-6 align-self-end text-center text-lg-end">
+                @if (Model != null)
+                {
+                    <img class="img-fluid" src="~/AI/img/hero-img.png" alt="">
+                }
+            </div>
+        </div>
+    </div>
+</div>

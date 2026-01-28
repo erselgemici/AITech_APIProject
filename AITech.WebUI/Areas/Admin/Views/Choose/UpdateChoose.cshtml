@@ -1,0 +1,64 @@
+@model AITech.WebUI.DTOs.ChooseDtos.UpdateChooseDto
+@{
+    ViewData["Title"] = "Özellik Güncelle";
+    Layout = "~/Areas/Admin/Views/_AdminLayout.cshtml";
+}
+
+<div class="container mx-auto max-w-3xl">
+    <a href="/Admin/Choose/Index" class="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors text-sm font-medium">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        Listeye Dön
+    </a>
+
+    <div class="glass-card rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+        <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary">edit_note</span>
+            Özelliği Düzenle
+        </h2>
+
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="group">
+                        <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Başlık</label>
+                        <input type="text" asp-for="Title" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                    </div>
+                    <div class="group">
+                        <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Görsel URL</label>
+                        <input type="text" asp-for="ImageUrl" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-secondary transition-all" />
+                    </div>
+                </div>
+
+                <div class="group">
+                    <label class="block text-xs uppercase font-bold text-secondary mb-2 tracking-wider">Açıklama</label>
+                    <textarea asp-for="Description" rows="3" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-secondary transition-all resize-none"></textarea>
+                </div>
+
+                <div class="p-5 bg-white/5 rounded-xl border border-white/5">
+                    <label class="block text-xs uppercase font-bold text-slate-400 mb-4 tracking-wider">Alt Özellikler</label>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">looks_one</span>
+                            <input type="text" asp-for="Item1" class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-secondary transition-all" />
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">looks_two</span>
+                            <input type="text" asp-for="Item2" class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-secondary transition-all" />
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">looks_3</span>
+                            <input type="text" asp-for="Item3" class="w-full bg-slate-900/50 border border-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-secondary transition-all" />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-white/10 text-white font-bold border border-white/10 hover:bg-secondary hover:border-secondary hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">update</span>
+                    Güncelle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

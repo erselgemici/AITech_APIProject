@@ -1,0 +1,134 @@
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@await Component.InvokeAsync("_Banner")
+
+<div class="modal fade" id="searchModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(20, 24, 62, 0.7);">
+            <div class="modal-header border-0">
+                <button type="button" class="btn btn-square bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="input-group" style="max-width: 600px;">
+                    <input type="text" class="form-control bg-transparent border-light p-3" placeholder="Type search keyword">
+                    <button class="btn btn-light px-4"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Component.InvokeAsync("_About")
+
+@await Component.InvokeAsync("_Service")
+
+@await Component.InvokeAsync("_Choose")
+
+@await Component.InvokeAsync("_Project")
+
+@await Component.InvokeAsync("_Faq")
+
+@await Component.InvokeAsync("_Team")
+
+@await Component.InvokeAsync("_Testimonial")
+
+<div class="container-fluid bg-primary newsletter py-5" id="ai-demo-section" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-md-5 ps-lg-0 pt-5 pt-md-0 text-start wow fadeIn" data-wow-delay="0.3s">
+                <img class="img-fluid" src="~/AI/img/newsletter.png" alt="AI Robot">
+            </div>
+
+            <div class="col-md-7 py-5 newsletter-text wow fadeIn" data-wow-delay="0.5s">
+
+                <div class="mb-4">
+                    <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill text-white bg-white bg-opacity-25 border border-white border-opacity-25 shadow-sm" style="backdrop-filter: blur(5px); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;">
+                        <i class="fa fa-sparkles"></i> ✨ Gemini AI v1.5
+                    </span>
+                </div>
+
+                <h1 class="text-white mb-4 display-5 fw-bold">Yapay Zeka Asistanını Deneyin</h1>
+                <p class="text-white-50 mb-4 fs-5" style="max-width: 90%;">İşinizle ilgili bir slogan, kod parçası veya yaratıcı bir fikir isteyin. Yapay zekamızın hızını anlık olarak test edin.</p>
+
+                <div class="position-relative w-100 mt-4 mb-3">
+                    <input id="geminiPrompt"
+                           class="form-control border-0 rounded-pill w-100 ps-4 pe-5 shadow-lg"
+                           type="text"
+                           placeholder="Örn: 'Bir yazılım şirketi için vizyoner bir slogan bul...'"
+                           style="height: 65px; font-size: 1.1rem;">
+
+                    <button type="button" onclick="callGeminiDemo()"
+                            class="btn btn-primary rounded-circle position-absolute top-50 end-0 translate-middle-y me-2 shadow-md d-flex align-items-center justify-content-center"
+                            style="width: 50px; height: 50px; background: linear-gradient(45deg, #2196F3, #21CBF3); border: none;">
+                        <i class="fa fa-paper-plane text-white fs-5"></i>
+                    </button>
+                </div>
+
+                <div id="aiResponseCard" class="mt-4 p-4 rounded-3 bg-white text-dark d-none shadow-lg animated fadeInUp" style="min-height: 100px; opacity: 0.98;">
+                    <div class="d-flex align-items-center mb-3 pb-2 border-bottom">
+                        <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle me-3" style="width: 35px; height: 35px;">
+                            <i class="fa fa-robot text-primary"></i>
+                        </div>
+                        <strong class="text-primary" style="font-size: 0.95rem;">AI.Tech Asistanı</strong>
+                    </div>
+                    <p id="aiResponseText" class="mb-0" style="font-size: 1rem; line-height: 1.6; color: #444;">Yanıt bekleniyor...</p>
+                </div>
+
+                <small class="text-white-50 fst-italic mt-2 d-block">* Powered by Google Gemini AI</small>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* Yapay zeka cevap alanı içindeki listeleri düzeltme */
+    #aiResponseText ul, #aiResponseText ol {
+        padding-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    #aiResponseText li {
+        margin-bottom: 5px;
+        list-style-type: disc; /* Madde işareti koy */
+    }
+
+    #aiResponseText strong {
+        color: #0d6efd; /* Kalın yazıları tema rengi yap */
+        font-weight: 700;
+    }
+
+    #aiResponseText p {
+        margin-bottom: 10px;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    function callGeminiDemo() {
+        const promptInput = document.getElementById('geminiPrompt');
+        const responseCard = document.getElementById('aiResponseCard');
+        const responseText = document.getElementById('aiResponseText');
+        const prompt = promptInput.value;
+
+        if (!prompt.trim()) return; // Boşsa işlem yapma
+
+        // 1. Yükleniyor durumunu göster
+        responseCard.classList.remove('d-none');
+        responseText.innerHTML = '<div class="d-flex align-items-center gap-2"><div class="spinner-border spinner-border-sm text-primary" role="status"></div><span>Yapay zeka yanıt üretiyor...</span></div>';
+
+        // 2. WebUI Controller'a AJAX isteği at
+        $.ajax({
+            url: '/Gemini/GetResponse',
+            type: 'POST',
+            data: { prompt: prompt },
+                success: function (data) {
+        // marked.parse() fonksiyonu Markdown'ı HTML'e çevirir
+        responseText.innerHTML = marked.parse(data.answer);
+    },
+            error: function () {
+                responseText.innerHTML = "<span class='text-danger'>Bir hata oluştu. Lütfen tekrar deneyin.</span>";
+            }
+        });
+    }
+</script>
